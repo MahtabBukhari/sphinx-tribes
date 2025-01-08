@@ -856,6 +856,8 @@ func TestRefreshToken(t *testing.T) {
 
 func TestMakeConnectionCodeRequest(t *testing.T) {
 
+	config.V2BotUrl = "http://localhost:3005"
+
 	tests := []struct {
 		name               string
 		inviter_pubkey     string
@@ -870,7 +872,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "invite_code",
 		},
 		{
@@ -878,7 +879,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       0,
-			mockError:          nil,
 			expected:           "invite_code",
 		},
 		{
@@ -886,7 +886,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       math.MaxUint64,
-			mockError:          nil,
 			expected:           "invite_code",
 		},
 		{
@@ -894,7 +893,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "invalid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "",
 		},
 		{
@@ -902,7 +900,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "invalid_route_hint",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "",
 		},
 		{
@@ -910,7 +907,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       1000,
-			mockError:          fmt.Errorf("network error"),
 			expected:           "",
 		},
 		{
@@ -918,7 +914,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "",
 		},
 		{
@@ -926,7 +921,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "valid_pubkey",
 			inviter_route_hint: "valid_route_hint",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "",
 		},
 		{
@@ -934,7 +928,6 @@ func TestMakeConnectionCodeRequest(t *testing.T) {
 			inviter_pubkey:     "",
 			inviter_route_hint: "",
 			msats_amount:       1000,
-			mockError:          nil,
 			expected:           "invite_code",
 		},
 	}
